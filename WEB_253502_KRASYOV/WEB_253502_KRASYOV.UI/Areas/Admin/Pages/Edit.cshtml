@@ -1,0 +1,58 @@
+﻿@page
+@model WEB_253502_KRASYOV.UI.Areas.Admin.Pages.EditModel
+
+@{
+    ViewData["Title"] = "Edit";
+}
+
+<h1>Edit</h1>
+
+<h4>Device</h4>
+<hr />
+<div class="row">
+    <div class="col-md-4">
+        <form method="post" enctype="multipart/form-data">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <div class="form-group">
+                <label asp-for="Device.Name" class="control-label"></label>
+                <input asp-for="Device.Name" class="form-control" />
+                <span asp-validation-for="Device.Name" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Device.Description" class="control-label"></label>
+                <input asp-for="Device.Description" class="form-control" />
+                <span asp-validation-for="Device.Description" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Device.Category" class="control-label"></label>
+                <select asp-for="Device.CategoryId" class="form-control" id="picker" asp-items="@Model.Categories"></select>
+            </div>
+            <div class="form-group">
+                <label asp-for="Device.Price" class="control-label"></label>
+                <input asp-for="Device.Price" class="form-control" type="number" />
+                <span asp-validation-for="Device.Price" class="text-danger"></span>
+            </div>
+            <div class="form-group mb-2">
+                <div class="form-group m-2">
+                    <img src="@Model.Device.Image" alt="@Model.Device.Name" />
+                </div>
+                <label asp-for="@Model.Image" class="control-label"></label>
+                <input asp-for="@Model.Image" class="form-control" type="file" id="filepicker" />
+                <span asp-validation-for="@Model.Image" class="text-danger"></span>
+            </div>
+            <input type="hidden" asp-for="Device.Id" />
+            <input type="hidden" asp-for="Device.Image" />
+            <div class="form-group">
+                <input type="submit" value="Save" class="btn btn-primary" />
+            </div>
+        </form>
+    </div>
+</div>
+
+<div>
+    <a asp-page="./Index">Back to List</a>
+</div>
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}

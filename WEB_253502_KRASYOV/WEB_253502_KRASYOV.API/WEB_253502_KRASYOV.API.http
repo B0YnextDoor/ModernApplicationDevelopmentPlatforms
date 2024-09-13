@@ -1,0 +1,6 @@
+@WEB_253502_KRASYOV.API_HostAddress = http://localhost:5190
+
+GET {{WEB_253502_KRASYOV.API_HostAddress}}/weatherforecast/
+Accept: application/json
+
+###

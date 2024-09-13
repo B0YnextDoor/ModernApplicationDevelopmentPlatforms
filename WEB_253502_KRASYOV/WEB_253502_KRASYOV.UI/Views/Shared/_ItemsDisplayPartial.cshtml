@@ -1,0 +1,62 @@
+﻿@model ListModel<Device>
+
+@{
+    var request = ViewContext.HttpContext.Request;
+    var admin = request.Path.ToString().Contains("Admin");
+    string? category = request.RouteValues["category"]?.ToString();
+    var returnUrl = request.Path + request.QueryString.ToUriComponent();
+}
+
+@if(admin)
+{
+    <table class="table">
+        <thead>
+            <tr>
+                <th>Name</th>
+                <th>Description</th>
+                <th>Price</th>
+                <th>Image</th>
+                <th>@admin</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var item in Model.Items)
+            {
+                <tr>
+                    <td>@item.Name</td>
+                    <td>@item.Description</td>
+                    <td>@item.Price</td>
+                    <td><img src="@item.Image" width="200" height="200" alt="200" alt="@item.Name" /></td>
+                    <td>
+                        <a asp-area="Admin" asp-page="./Edit" asp-route-id="@item.Id">Edit</a> |
+                        <a asp-area="Admin" asp-page="./Details" asp-route-id="@item.Id">Details</a> |
+                        <a asp-area="Admin" asp-page="./Delete" asp-route-id="@item.Id">Delete</a>
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+}
+else
+{
+    <div class="row offset-1" id="deviceContainer">
+        @foreach (var item in Model.Items)
+        {
+            await Html.RenderPartialAsync("_CardPartial", new
+            {
+                ReturnUrl = returnUrl,
+                Item = item,
+            });
+        }
+    </div>
+}
+@{
+	await Html.RenderPartialAsync("_PageNavPartial", new
+	{
+		CurrentPage = Model.CurrentPage,
+		TotalPages = Model.TotalPages,
+		Category = category,
+		Admin = admin,
+	});
+}
+

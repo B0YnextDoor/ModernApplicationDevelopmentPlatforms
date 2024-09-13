@@ -1,0 +1,25 @@
+﻿<div class="com-sm-6 col-md-4 mb-4">
+	<div class="card h-100">
+		<div class="card-header text-center bg-white">
+			<img src="@Model.Item.Image" class="card-img-top" width=200 height=300 />
+		</div>
+		<div class="card-body">
+			<p class="card-text fs-5 fw-bold" style="text-transform: uppercase;">@Model.Item.Name</p>
+			<p class="card-title fs-3 fw-light" style="min-height: 100px;">@Model.Item.Description</p>
+			<p class="card-text fs-5 fw-bold">@Model.Item.Price BYN</p>
+		</div>
+		@if(@User.Identity.IsAuthenticated)
+		{
+			<div class="card-footer" style="text-align:center;">
+				<a asp-controller="Cart"
+				   asp-action="Add"
+				   asp-route-id="@Model.Item.Id"
+				   asp-route-returnurl="@Model.ReturnUrl"
+				   class="btn btn-primary">
+					Добавить в корзину
+					<i class="fa-solid fa-cart-shopping"></i>
+				</a>
+			</div>
+		}
+	</div>
+</div>

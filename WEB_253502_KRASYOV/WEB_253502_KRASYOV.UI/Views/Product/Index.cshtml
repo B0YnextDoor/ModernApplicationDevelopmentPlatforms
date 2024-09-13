@@ -1,0 +1,12 @@
+﻿@{
+    @model ListModel<Device>
+    ViewBag.Title = "Catalog";
+}
+
+<h1 class="mt-1">Каталог</h1>
+<div class="container mt-3">
+	<partial name="_CategorySwitchPartial.cshtml" />
+	<div id="catalog">
+		<partial name="_ItemsDisplayPartial" model = "@Model" />
+	</div>
+</div>

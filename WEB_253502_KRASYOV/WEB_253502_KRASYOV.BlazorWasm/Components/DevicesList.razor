@@ -1,0 +1,55 @@
+﻿@inject IDataService DataService
+@implements IDisposable
+
+<div class="container-fluid">
+	<table class="table">
+		<thead class="thead-dark">
+			<tr>
+				<th scope="col">#</th>
+				<th scope="col">Name</th>
+				<th></th>
+			</tr>
+		</thead>
+		<tbody>
+			@if (DataService.Success && DataService.Devices is not null && DataService.Devices.Any())
+			{
+				@foreach (var item in DataService.Devices)
+				{
+					<tr>
+						<td scope="row">@item.Id</td>
+						<td>@item.Name</td>
+						<td>
+							<button class="btn btn-outline-secondary"
+									@onclick="() => OnItemSelected.Invoke(item.Id)">
+								Details
+							</button>
+						</td>
+					</tr>
+				}
+			}
+			else if (!DataService.Success)
+			{
+				<tr>@DataService.ErrorMessage</tr>
+			}
+			else
+			{
+				<tr>No items</tr>
+			}
+		</tbody> 
+	</table>
+</div>
+
+@code {
+	[Parameter]
+	public Action<int> OnItemSelected { get; set; }
+
+	protected override void OnInitialized()
+	{
+		DataService.DataLoaded += StateHasChanged;
+	}
+
+	public void Dispose()
+	{
+		DataService.DataLoaded -= StateHasChanged;
+	}
+}

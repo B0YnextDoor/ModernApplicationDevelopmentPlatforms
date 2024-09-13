@@ -1,0 +1,30 @@
+﻿@{
+	var categories = ViewData["categories"] as List<Category> ?? new List<Category>();
+}
+<div class="col-2 border-2">
+	<ul class="nav">
+		<li class="nav-item dropdown">
+			<a class="nav-link dropdown-toggle"
+			   data-bs-toggle="dropdown"
+			   href="#"
+			   role="button"
+			   aria-expanded="false">
+				@ViewData["current"]
+			</a>
+			<ul class="dropdown-menu" aria-labelledby="dropdown">
+				<li>
+					<a class="dropdown-item" asp-controller="Product" asp-route-category=@null>Все</a>
+				</li>
+				@foreach (var item in categories)
+				{
+					<li>
+						<a class="dropdown-item" asp-controller="Product" 
+							asp-route-category="@item.NormalizedName">
+							@item.Name
+						</a>
+					</li>
+				}
+			</ul>
+		</li>
+	</ul>
+</div>

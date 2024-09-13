@@ -1,0 +1,21 @@
+﻿@page
+@model WEB_253502_KRASYOV.UI.Areas.Admin.Pages.IndexModel
+@{
+    ViewData["Title"] = "Index";
+}
+
+<h1>Index</h1>
+<p>
+    <a asp-page="Create">Create New</a>
+</p>
+<div id="catalog">
+    @{
+        await Html.RenderPartialAsync("_ItemsDisplayPartial", new ListModel<Device>()
+        {
+            Items = Model.Items,
+            CurrentPage = Model.CurrentPage,
+            TotalPages = Model.TotalPages
+        });
+    }
+</div>
+
