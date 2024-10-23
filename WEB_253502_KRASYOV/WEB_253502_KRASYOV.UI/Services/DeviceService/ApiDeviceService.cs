@@ -148,11 +148,7 @@ namespace WEB_253502_KRASYOV.UI.Services.DeviceService
 
             var uri = new Uri($"{_uri}/{id}");
             await _tokenAccessor.SetAuthorizationHeaderAsync(_httpClient);
-            var response = await _httpClient.PutAsJsonAsync(uri, product, _serializerOptions);
-			if (!response.IsSuccessStatusCode)
-			{
-				CatchServerError("Object not changed", response.StatusCode);
-			}
+			_ = await _httpClient.PutAsJsonAsync(uri, product, _serializerOptions);
 			return;
 		}
 

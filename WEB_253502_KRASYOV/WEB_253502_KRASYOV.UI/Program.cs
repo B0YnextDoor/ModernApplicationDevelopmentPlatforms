@@ -13,6 +13,10 @@ builder.RegisterCustomServices();
 builder.RegisterHttpClient();
 
 builder.AddAuthentication();
+builder.Services.AddAuthorization(opt =>
+{
+	opt.AddPolicy("admin", p => p.RequireRole("POWER-USER"));
+});
 
 builder.AddLogging();
 
@@ -34,7 +38,7 @@ app.UseRouting();
 app.UseSession();
 
 app.UseAuthorization();
-app.MapRazorPages();
+app.MapRazorPages().RequireAuthorization();
 
 app.MapControllerRoute(
     name: "default",

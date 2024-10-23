@@ -21,4 +21,8 @@
     <ProjectReference Include="..\WEB_253502_KRASYOV.Domain\WEB_253502_KRASYOV.Domain.csproj" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Folder Include="Logs\" />
+  </ItemGroup>
+
 </Project>

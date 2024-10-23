@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Diagnostics;
 using System.Linq;
 using System.Threading.Tasks;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.AspNetCore.Mvc.Rendering;
@@ -12,7 +13,8 @@ using WEB_253502_KRASYOV.UI.Services.DeviceService;
 
 namespace WEB_253502_KRASYOV.UI.Areas.Admin.Pages
 {
-    public class CreateModel : PageModel
+	[Authorize(Policy = "admin")]
+	public class CreateModel : PageModel
     {
         private readonly IDeviceService _deviceService;
         private readonly ICategoryService _categoryService;

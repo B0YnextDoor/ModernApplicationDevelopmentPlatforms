@@ -64,7 +64,7 @@ namespace WEB_253502_KRASYOV.UI.Extensions
                 options.MetadataAddress =
                     $"{keycloakData.Host}/realms/{keycloakData.Realm}/.well-known/openid-configuration";
             });
-        }
+		}
 
         public static void AddLogging(this WebApplicationBuilder builder) {
 			builder.Host.UseSerilog((context, configuration) =>

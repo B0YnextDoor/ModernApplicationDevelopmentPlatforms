@@ -1,8 +1,10 @@
 ﻿@page
+@using Microsoft.AspNetCore.Authorization
 @model WEB_253502_KRASYOV.UI.Areas.Admin.Pages.IndexModel
 @{
     ViewData["Title"] = "Index";
 }
+@attribute [AllowAnonymous]
 
 <h1>Index</h1>
 <p>

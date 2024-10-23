@@ -1,4 +1,5 @@
 ﻿@page "/counter/{currentCount:int?}"
+@using System.Diagnostics
 @rendermode InteractiveServer
 
 <PageTitle>Counter</PageTitle>
@@ -10,28 +11,40 @@
 <button class="btn btn-primary" @onclick="IncrementCount">Click me</button>
 
 <div class="container mt-5">
-    <EditForm OnValidSubmit="OnValidSubmit" Model="@validator">
+    <EditForm EditContext="@editContext" OnValidSubmit="OnValidSubmit">
         <DataAnnotationsValidator />
         <ValidationSummary />
         <InputNumber @bind-Value="validator.Value" />
     </EditForm>
-    <button class="btn btn-secondary" @onclick="SetValue">Set value</button>
+    <button class="btn btn-secondary mt-2" @onclick="SetValue">Set value</button>
 </div>
 
 @code {
-
     CounterValidator validator = new CounterValidator();
+    private EditContext editContext;
 
     [Parameter]
     public int currentCount { get; set; } = 0;
 
+    protected override void OnInitialized()
+    {
+        editContext = new EditContext(validator);
+    }
+
     private void IncrementCount() => currentCount++;
 
-    private void OnValidSubmit() {}
+    private void OnValidSubmit() { }
 
     private void SetValue()
     {
-        currentCount = validator.Value;
+        if (editContext.Validate())
+        {
+            currentCount = validator.Value;
+            Debug.WriteLine(currentCount);
+        }
+        else
+        {
+            Debug.WriteLine("Validation failed. Value not set.");
+        }
     }
-
 }

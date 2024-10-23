@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.AspNetCore.Mvc.Rendering;
@@ -11,7 +12,8 @@ using WEB_253502_KRASYOV.UI.Services.DeviceService;
 
 namespace WEB_253502_KRASYOV.UI.Areas.Admin.Pages
 {
-    public class EditModel : PageModel
+	[Authorize(Policy = "admin")]
+	public class EditModel : PageModel
     {
         private readonly IDeviceService _deviceService;
         private readonly ICategoryService _categoryService;
@@ -31,8 +33,7 @@ namespace WEB_253502_KRASYOV.UI.Areas.Admin.Pages
         public IFormFile? Image { get; set; }
 
         public SelectList Categories { get; set; }
-
-        public async Task<IActionResult> OnGetAsync(int? id)
+		public async Task<IActionResult> OnGetAsync(int? id)
         {
             if (id == null)
             {
